@@ -264,6 +264,9 @@ DO $$ BEGIN
     CREATE ROLE app_tester NOLOGIN;
   END IF;
 END $$;
+-- Cho phép user postgres "đóng vai" app_tester bằng SET ROLE.
+-- Cần vì trên Supabase local, postgres không phải superuser thật.
+GRANT app_tester TO postgres;
 GRANT USAGE ON SCHEMA public TO app_tester;
 GRANT INSERT ON public.messages TO app_tester;
 GRANT SELECT, DELETE ON public.workspace_members TO app_tester;
